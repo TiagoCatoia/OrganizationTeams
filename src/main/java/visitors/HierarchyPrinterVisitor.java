@@ -1,6 +1,7 @@
 package visitors;
 
 import elements.Employee;
+import elements.OrganizationElement;
 import elements.Team;
 
 public class HierarchyPrinterVisitor implements OrganizationVisitor {
@@ -33,6 +34,10 @@ public class HierarchyPrinterVisitor implements OrganizationVisitor {
                 .append(team.getLeader().getName())
                 .append("\n");
         level++;
+        for (OrganizationElement member : team.getMembers()) {
+            member.accept(this);
+        }
+        level--;
     }
 
     public String getHierarchy() {

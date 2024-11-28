@@ -1,11 +1,9 @@
 package visitors;
 
 import elements.Employee;
+import elements.OrganizationElement;
 import elements.Team;
 
-import java.util.StringJoiner;
-
-import static java.lang.StringTemplate.STR;
 
 public class TotalSalaryVisitor implements OrganizationVisitor {
     private double totalSalary = 0;
@@ -24,6 +22,9 @@ public class TotalSalaryVisitor implements OrganizationVisitor {
                 .append(team.getLeader().getName())
                 .append(")\n");
         totalSalary += team.getLeader().getSalary();
+        for (OrganizationElement member : team.getMembers()) {
+            member.accept(this);
+        }
     }
 
     public double getTotalSalary() {
